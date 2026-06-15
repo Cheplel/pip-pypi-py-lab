@@ -1,6 +1,24 @@
 import argparse
 from html import escape
 from typing import List
+from datetime import datetime
+import os
+
+
+def generate_log(data: List[str]) -> str:
+    """Write `data` lines to a dated log file and return the filename.
+
+    Raises ValueError if `data` is not a list.
+    """
+    if not isinstance(data, list):
+        raise ValueError("Input data must be a list of log entries.")
+
+    filename = f"log_{datetime.now().strftime('%Y%m%d')}.txt"
+    with open(filename, 'w', encoding='utf-8') as f:
+        for entry in data:
+            f.write(f"{entry}\n")
+
+    return filename
 
 
 # ==========================================
